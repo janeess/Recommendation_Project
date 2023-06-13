@@ -4,6 +4,8 @@ import com.example.project.AbstractIntegrationContainerBaseTest
 import com.example.project.recommendation.entity.Recommendation
 import org.springframework.beans.factory.annotation.Autowired
 
+import java.time.LocalDateTime
+
 
 //클래스 상속 받기 -> 통합테스트 환경 구축 완료
 class RecommendRepositoryTest extends AbstractIntegrationContainerBaseTest {
@@ -60,6 +62,26 @@ class RecommendRepositoryTest extends AbstractIntegrationContainerBaseTest {
 
         then:
         result.size() == 1
+    }
+
+    def "BaseTimeEntity 등록"() {
+        given:
+        LocalDateTime now = LocalDateTime.now() //현재시간
+        String address = "서울 특별시 성북구 종암동"
+        String name = "은혜 약국"
+
+        def recommendation = Recommendation.builder()
+            .recommendAddress(address)
+            .recommendName(name)
+            .build()
+
+        when:
+        recommendRepository.save(recommendation)
+        def result = recommendRepository.findAll()
+
+        then:
+        result.get(0).getCreatedDate().isAfter(now) //now라는 시간보다 나중인지 확인하는 메소드
+        result.get(0).getModifiedDate().isAfter(now)
     }
 
 }

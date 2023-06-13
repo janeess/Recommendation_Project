@@ -1,5 +1,6 @@
 package com.example.project.recommendation.entity;
 
+import com.example.project.BaseTimeEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import javax.persistence.Id;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Recommendation {
+public class Recommendation extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //db가 pk값을 대신 생성해줌

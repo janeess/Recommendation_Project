@@ -22,6 +22,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 *
 * */
 
+/* Dirty Checking
+*  = entity 상태 변경 검사 -> JPA 트랜잭션이 끝나는 시점에 변화가 있는 모든 entity 객체를 데이터 베이스에 자동으로 반영(db 업데이트)
+* 주의사항
+* 1. 영속상태가 아닐 경우 값을 변경해도 db에 반영 ㄴㄴ
+* 2. 트랜잭션 없이 데이터 반영 ㄴㄴ
+*
+* */
+
 public interface RecommendRepository extends JpaRepository<Recommendation, Long> {
 
 
